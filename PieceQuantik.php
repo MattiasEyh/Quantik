@@ -81,7 +81,8 @@ class PieceQuantik
                 $str = "(Sp:";
                 break;
             default :
-                $str = "(   ";
+                $str = "(    )";
+                return $str;
                 break;
         }
         switch($this->couleur){
@@ -91,10 +92,8 @@ class PieceQuantik
             case self::BLACK:
                 $str .= "N)";
                 break;
-            default :
-                $str .= " )";
-                break;
         }
+        return $str;
     }
 
     /**
@@ -105,7 +104,7 @@ class PieceQuantik
      * @return PieceQuantik
      */
     public static function initVoid() : PieceQuantik {
-        return new PlateauQuantik(self::VOID, self::WHITE);
+        return new PieceQuantik(self::VOID, self::WHITE);
     }
 
     /**
@@ -116,7 +115,7 @@ class PieceQuantik
      * @return PieceQuantik
      */
     public static function initWhiteCube() : PieceQuantik {
-        return new PlateauQuantik(self::CUBE, self::WHITE);
+        return new PieceQuantik(self::CUBE, self::WHITE);
     }
 
     /**
@@ -127,7 +126,7 @@ class PieceQuantik
      * @return PieceQuantik
      */
     public static function initBlackCube() : PieceQuantik {
-        return new PlateauQuantik(self::CUBE, self::BLACK);
+        return new PieceQuantik(self::CUBE, self::BLACK);
     }
 
     /**
@@ -138,7 +137,7 @@ class PieceQuantik
      * @return PieceQuantik
      */
     public static function initWhiteCone() : PieceQuantik {
-        return new PlateauQuantik(self::CONE, self::WHITE);
+        return new PieceQuantik(self::CONE, self::WHITE);
     }
 
     /**
@@ -149,7 +148,7 @@ class PieceQuantik
      * @return PieceQuantik
      */
     public static function initBlackCone() : PieceQuantik {
-        return new PlateauQuantik(self::CONE, self::BLACK);
+        return new PieceQuantik(self::CONE, self::BLACK);
     }
 
     /**
@@ -160,7 +159,7 @@ class PieceQuantik
      * @return PieceQuantik
      */
     public static function initWhiteCylindre() : PieceQuantik {
-        return new PlateauQuantik(self::CYLINDRE, self::WHITE);
+        return new PieceQuantik(self::CYLINDRE, self::WHITE);
     }
 
     /**
@@ -171,7 +170,7 @@ class PieceQuantik
      * @return PieceQuantik
      */
     public static function initBlackCylindre() : PieceQuantik {
-        return new PlateauQuantik(self::CYLINDRE, self::BLACK);
+        return new PieceQuantik(self::CYLINDRE, self::BLACK);
     }
 
     /**
@@ -182,7 +181,7 @@ class PieceQuantik
      * @return PieceQuantik
      */
     public static function initWhiteSphere() : PieceQuantik {
-        return new PlateauQuantik(self::SPHERE, self::WHITE);
+        return new PieceQuantik(self::SPHERE, self::WHITE);
     }
 
     /**
@@ -193,6 +192,6 @@ class PieceQuantik
      * @return PieceQuantik
      */
     public static function initBlackSphere() : PieceQuantik {
-        return new PlateauQuantik(self::SPHERE, self::BLACK);
+        return new PieceQuantik(self::SPHERE, self::BLACK);
     }
 }
