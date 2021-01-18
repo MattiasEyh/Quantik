@@ -3,6 +3,7 @@
 
 class PieceQuantik
 {
+
     // Constantes représantant les couleurs possibles pour une pièce
     public const WHITE = 0;
     public const BLACK = 1;
@@ -194,4 +195,5 @@ class PieceQuantik
     public static function initBlackSphere() : PieceQuantik {
         return new PieceQuantik(self::SPHERE, self::BLACK);
     }
+
 }
