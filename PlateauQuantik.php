@@ -2,8 +2,6 @@
 
 <?php
 
-<require_once PieceQuantik::class >
-
 class PlateauQuantik
 {
     const NBROWS = 4;
