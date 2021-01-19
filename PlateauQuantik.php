@@ -1,7 +1,7 @@
 
-
-
 <?php
+
+require_once "PieceQuantik.php";
 
 class PlateauQuantik
 {
@@ -26,22 +26,25 @@ class PlateauQuantik
     public function __construct(){
         $this->cases = array();
 
-        for ($i=0; $i < self::NBROWS; $i++)
+        for ($i=0; $i < self::NBROWS; $i++) {
             $this->cases[$i] = array();
-            for ($j=0; $j < self::NBCOLS; $j++)
+            for ($j = 0; $j < self::NBCOLS; $j++)
                 $this->cases[$i][$j] = PieceQuantik::initVoid();
+        }
     }
 
     /**
      * Afficheur de la classe PlateauQuantik
      * @return string
      */
-    public function __toString() : string{
+    public function __toString(): string {
         $str = "";
-        for($i=0; $i<self::NBROWS; $i++)
-            for($j = 0; $j < self::NBCOLS; $j++){
-                $str .= "\n";
+        for ($i = 0; $i < self::NBROWS; $i++) {
+            for ($j = 0; $j < self::NBCOLS; $j++) {
+                $str .= $this->cases[$i][$j];
             }
+            $str .= "\n";
+        }
 
         return $str;
     }
@@ -62,8 +65,7 @@ class PlateauQuantik
      * @return PieceQuantik
     */
     public function getPiece(int $rowNum, int $colNum) : PieceQuantik{
-        if ( $rowNum <= self::NBROWS AND $colNum <= self::NBCOLS)
-            return $this->cases[$rowNum][$colNum];
+        return $this->cases[$rowNum][$colNum];
     }
 
     /**
@@ -73,8 +75,7 @@ class PlateauQuantik
      * @param PieceQuantik $p
      */
     public function setPiece(int $rowNum, int $colNum, PieceQuantik $p) : void {
-        if ( $rowNum <= self::NBROWS AND $colNum <= self::NBCOLS)
-            $this->cases[$rowNum][$colNum] = $p;
+        $this->cases[$rowNum][$colNum] = $p;
     }
 
     /**

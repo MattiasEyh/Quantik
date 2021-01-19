@@ -39,7 +39,7 @@ class ActionQuantik
      */
     public function isRowWin(int $numRow) : bool {
         $row = $this->plateau->getRow($numRow);
-        return comboWin($row);
+        return self::comboWin($row);
     }
 
     /**
@@ -52,7 +52,7 @@ class ActionQuantik
      */
     public function isColWin(int $numCol) : bool {
         $Col = $this->plateau->getCol($numCol);
-        return comboWin($Col);
+        return self::comboWin($Col);
     }
 
     /**
@@ -65,7 +65,7 @@ class ActionQuantik
      */
     public function isCornerWin(int $dir) : bool {
         $corner = $this->plateau->getCorner($dir);
-        return comboWin($corner);
+        return self::comboWin($corner);
     }
 
     /**
@@ -85,16 +85,16 @@ class ActionQuantik
             return false;
         // La ligne ne contient pas de piece de même forme
         $row = $this->plateau->getRow($rowNum);
-        if(!isPieceValide($row, $piece))
+        if(!self::isPieceValide($row, $piece))
             return false;
         // La colonne ne contient pas de piece de même forme
         $col = $this->plateau->getCol($colNum);
-        if(!isPieceValide($col, $piece))
+        if(!self::isPieceValide($col, $piece))
                 return false;
         // Le coin ne contient pas de piece de même forme
         $dir = $this->plateau->getCornerFromCoord($rowNum, $colNum);
         $corner = $this->plateau->getCorner($dir);
-        if(!isPieceValide($corner, $piece))
+        if(!self::isPieceValide($corner, $piece))
                 return false;
         return true;
     }
@@ -138,8 +138,8 @@ class ActionQuantik
      */
     private static function ComboWin(array $pieces) : bool {
         $sum = 0;
-        for($i = 0; i < PlateauQuantik::NBROWS; $i++)
-            $sum += $pieces[i]->getForme();
+        for($i = 0; $i < PlateauQuantik::NBROWS; $i++)
+            $sum += $pieces[$i]->getForme();
         // Comme les cases contienent toutes des formes diffèrentes :
         // "la combinaison est gagnante" <=> $sum == 10
         return $sum == PieceQuantik::CUBE + PieceQuantik::SPHERE
@@ -159,8 +159,8 @@ class ActionQuantik
      * @static
      * @return true si la pièce peut être jouée, false sinon
      */
-    private  static function isPieceValide(array $pieces, PieceQuantik $p){
-        for($i = 0; i < PlateauQuantik::NBROWS; $i++)
+    private  static function isPieceValide(array $pieces, PieceQuantik $p) : bool {
+        for($i = 0; $i < PlateauQuantik::NBROWS; $i++)
             // Si les cases de $pieces sont toutes occupées, d'après les règles
             // une des cases contient déjà un pièce de la forme $p->getForme()
             if($pieces[0]->getForme() == $p->getForme())
