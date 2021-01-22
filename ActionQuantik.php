@@ -159,7 +159,7 @@ class ActionQuantik
      * @static
      * @return true si la pièce peut être jouée, false sinon
      */
-    private  static function isPieceValide(array $pieces, PieceQuantik $p) : bool {
+    private static function isPieceValide(array $pieces, PieceQuantik $p) : bool {
         for($i = 0; $i < PlateauQuantik::NBROWS; $i++)
             // Si les cases de $pieces sont toutes occupées, d'après les règles
             // une des cases contient déjà un pièce de la forme $p->getForme()
