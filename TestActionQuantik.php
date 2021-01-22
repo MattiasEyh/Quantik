@@ -59,13 +59,13 @@ echo $ActionQuantik2;
 
 echo "\nUne ligne gagnante ! Test : \n";
 
-$chaineTest .= ($ActionQuantik2->isRowWin(0) == true) ?  "\t-Test réussi\n" :  "\t-Test incorect\n";
+$chaineTest .= ($ActionQuantik2->isRowWin(0) == true) ?  "\t-Test réussi\n" :  "\t-Test incorrect\n";
 
 echo $chaineTest;
 
 echo $chaineTestSep;
 
-echo "\nAjout d'une colonne gagnante : \n";
+echo "\nAjout d'une colonne gagnant : \n";
 
 $ActionQuantik2->posePiece(1, 1, PieceQuantik::initWhiteCone());
 $ActionQuantik2->posePiece(2, 1, PieceQuantik::initBlackSphere());
@@ -77,12 +77,12 @@ echo $ActionQuantik2;
 echo "\nUne colonne gagnante ! (1) Test : \n";
 
 $chaineTest = "";
-$chaineTest .= ($ActionQuantik2->isColWin(1) == true) ?  "\t-Test réussi\n" :  "\t-Test incorect\n";
+$chaineTest .= ($ActionQuantik2->isColWin(1) == true) ?  "\t-Test réussi\n" :  "\t-Test incorrect\n";
 echo $chaineTest;
 echo "\nTest avec un colonne Perdante (0) :\n";
 
 $chaineTest = "";
-$chaineTest .= ($ActionQuantik2->isColWin(0) == false) ?  "\t-Test réussi\n" :  "\t-Test incorect\n";
+$chaineTest .= ($ActionQuantik2->isColWin(0) == false) ?  "\t-Test réussi\n" :  "\t-Test incorrect\n";
 
 echo $chaineTest;
 
@@ -95,14 +95,46 @@ $ActionQuantik2->posePiece(2, 0, PieceQuantik::initWhiteCone());
 
 echo $ActionQuantik2;
 
-echo "\nUn angle gagnant ! (SW) Test : \n";
+echo "\nUn angle qui doit être gagnant ! (SW) Test : \n";
 
 $chaineTest = "";
-$chaineTest .= ($ActionQuantik2->isCornerWin(PlateauQuantik::SW) == true) ?  "\t-Test réussi\n" :  "\t-Test incorect\n";
+$chaineTest .= ($ActionQuantik2->isCornerWin(PlateauQuantik::SW) == true) ?  "\t-Test réussi\n" :  "\t-Test incorrect\n";
 echo $chaineTest;
 
-echo "\nTest avec un angle perdant : \n";
+echo "\nTest avec un angle qui doit être perdant (SE) : \n";
 
 $chaineTest = "";
-$chaineTest .= ($ActionQuantik2->isCornerWin(PlateauQuantik::SE) == false) ?  "\t-Test réussi\n" :  "\t-Test incorect\n";
+$chaineTest .= ($ActionQuantik2->isCornerWin(PlateauQuantik::SE) == false) ?  "\t-Test réussi\n" :  "\t-Test incorrect\n";
+echo $chaineTest;
+
+echo "\nTests de isValidePose : \n";
+
+echo "\nLa pose d'une sphère en (1, 0) doit être valide : \n";
+$chaineTest = "";
+$chaineTest .= ($ActionQuantik2->isValidePose(1, 0, PieceQuantik::initWhiteSphere()) == true) ?  "\t-Test réussi\n" :  "\t-Test incorrect\n";
+echo $chaineTest;
+
+echo "\nLa pose d'un cylindre en (2, 2) doit être valide : \n";
+$chaineTest = "";
+$chaineTest .= ($ActionQuantik2->isValidePose(2, 2, PieceQuantik::initWhiteCylindre()) == true) ?  "\t-Test réussi\n" :  "\t-Test incorrect\n";
+echo $chaineTest;
+
+echo "\nLa pose d'une sphère en (3, 3) doit être non-valide : \n";
+$chaineTest = "";
+$chaineTest .= ($ActionQuantik2->isValidePose(3, 3, PieceQuantik::initWhiteSphere()) == false) ?  "\t-Test réussi\n" :  "\t-Test incorrect\n";
+echo $chaineTest;
+
+echo "\nLa pose d'un conne en (1, 3) doit être non-valide : \n";
+$chaineTest = "";
+$chaineTest .= ($ActionQuantik2->isValidePose(1, 3, PieceQuantik::initWhiteCone()) == false) ?  "\t-Test réussi\n" :  "\t-Test incorrect\n";
+echo $chaineTest;
+
+echo "\nLa pose d'un cylindre en (3, 3) doit être non-valide : \n";
+$chaineTest = "";
+$chaineTest .= ($ActionQuantik2->isValidePose(3, 3, PieceQuantik::initBlackCylindre()) == false) ?  "\t-Test réussi\n" :  "\t-Test incorrect\n";
+echo $chaineTest;
+
+echo "\nLa pose d'une pièce vide est interdite (test en (1, 0)) : \n";
+$chaineTest = "";
+$chaineTest .= ($ActionQuantik2->isValidePose(1, 0, PieceQuantik::initVoid()) == false) ?  "\t-Test réussi\n" :  "\t-Test incorrect\n";
 echo $chaineTest;

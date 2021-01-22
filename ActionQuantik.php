@@ -80,6 +80,9 @@ class ActionQuantik
      * @return true si la pose est légale, false sinon
      */
     public function isValidePose(int $rowNum, int $colNum, PieceQuantik $piece) : bool {
+        // La pièce n'est pas vide
+        if($piece->getForme() == PieceQuantik::VOID)
+            return false;
         // La case est innocupée
         if($this->plateau->getPiece($rowNum, $colNum)->getCouleur() != PieceQuantik::VOID)
             return false;
@@ -90,12 +93,12 @@ class ActionQuantik
         // La colonne ne contient pas de piece de même forme
         $col = $this->plateau->getCol($colNum);
         if(!self::isPieceValide($col, $piece))
-                return false;
+            return false;
         // Le coin ne contient pas de piece de même forme
         $dir = $this->plateau->getCornerFromCoord($rowNum, $colNum);
         $corner = $this->plateau->getCorner($dir);
         if(!self::isPieceValide($corner, $piece))
-                return false;
+            return false;
         return true;
     }
 
@@ -159,11 +162,11 @@ class ActionQuantik
      * @static
      * @return true si la pièce peut être jouée, false sinon
      */
-    private static function isPieceValide(array $pieces, PieceQuantik $p) : bool {
+    private  static function isPieceValide(array $pieces, PieceQuantik $p) : bool {
         for($i = 0; $i < PlateauQuantik::NBROWS; $i++)
             // Si les cases de $pieces sont toutes occupées, d'après les règles
-            // une des cases contient déjà un pièce de la forme $p->getForme()
-            if($pieces[0]->getForme() == $p->getForme())
+            // une des cases contient déjà une pièce de la forme $p->getForme()
+            if($pieces[$i]->getForme() == $p->getForme())
                 return false;
         return true;
     }
