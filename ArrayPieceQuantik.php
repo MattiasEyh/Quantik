@@ -1,23 +1,23 @@
 <?php
 
-
+include_once "PieceQuantik.php";
 class ArrayPieceQuantik
 {
-    protected array $piecesQuantiks;
+    protected array $piecesQuantiks = array();
     protected int $taille;
 
     public function _construct() {
-        $pieceQuantik = [];
+        $pieceQuantik = array();
         $taille = 0;
     }
 
-    public function __toStrin() : String {
+    public function __toString() : String {
         $res = "[";
         for($i = 0; $i < $this->taille; $i++){
             if($i < $this->taille - 1){
-                $res += $this->piecesQuantiks[$i] + "; ";
+                $res .= $this->piecesQuantiks[$i] . "; ";
             } else {
-                $res += $this->piecesQuantiks[$i] + "]";
+                $res .= $this->piecesQuantiks[$i] . "]";
             }
         }
         return $res;
