@@ -7,11 +7,15 @@ include_once "PieceQuantik.php";
 session_start();
 
 $plateauRemplis = new PlateauQuantik();
-$plateauRemplis->setPiece(0, 0, PieceQuantik::initBlackSphere());
-$plateauRemplis->setPiece(0, 1, PieceQuantik::initBlackCone());
-$plateauRemplis->setPiece(0, 2, PieceQuantik::initWhiteSphere());
+$plateauRemplis->setPiece(0, 0, PieceQuantik::initWhiteSphere());
+$plateauRemplis->setPiece(0, 1, PieceQuantik::initBlackCylindre());
+$plateauRemplis->setPiece(1, 0, PieceQuantik::initWhiteCone());
+$plateauRemplis->setPiece(3, 1, PieceQuantik::initBlackCube());
+
 
 $ar = ArrayPieceQuantik::initPiecesBlanches();
+$piece = PieceQuantik::initBlackCylindre();
+
 
 echo(QuantikUtil::getDebutHTML());
 
@@ -25,8 +29,11 @@ echo(QuantikUtil::getDivPiecesDisponibles($ar)."<br><hr>");
 echo("<p>getFormSelectionPiece</p>");
 echo(QuantikUtil::getFormSelectionPiece($ar));
 
+echo("<p>GetDivPlateauQuantik</p>");
+echo(QuantikUtil::getDivPlateauQuantik($plateauRemplis) . "<br><hr>");
+
 echo("<p>GetFormPlateauQuantik</p>");
-echo(QuantikUtil::getFormPlateauQuantik($plateauRemplis, $plateauRemplis->getPiece(0,1))."<br><hr>");
+echo(QuantikUtil::getFormPlateauQuantik($plateauRemplis, $piece) . "<br><hr>");
 
 echo(QuantikUtil::getFinHTML());
 

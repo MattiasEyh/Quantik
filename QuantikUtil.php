@@ -47,8 +47,25 @@ class QuantikUtil
         return $form;
     }
 
+    static function getDivPlateauQuantik(PlateauQuantik $plateau) : string {
+        $form = "<table>";
+        for($i = 0; $i<$plateau::NBROWS; $i++){
+            $form .= "<tr>";
+            for($j=0; $j < $plateau::NBCOLS; $j++){
+                $form .= "<th><button type='submit' name='active' disabled  value=''>" . $plateau->getPiece($i, $j) .
+                    "</button></th>";
+            }
+            $form .= "</tr>";
+        }
+        $form .= "</table>";
+
+        return $form;
+    }
+
     static function getFormPlateauQuantik(PlateauQuantik $plateau, PieceQuantik $piece): string{
-        $form = "<form action='" . $_SERVER['REQUEST_URI'] . "' method='post'>\n";
+       /* $form ="<style>.casePlateauActivee{background-color: green;} .casePlateauDesactivee{background-color: black;}</style>";
+
+        $form .= "<form action='" . $_SERVER['REQUEST_URI'] . "' method='post'>";
         $form .= "<table>";
         $action = new ActionQuantik($plateau);
         for($i = 0; $i < $plateau::NBROWS; $i++){
@@ -66,9 +83,23 @@ class QuantikUtil
         $form .= "</table><br/>";
         $form .= "</form>";
 
+        return $form;*/
+
+        $form = "<form action='" . $_SERVER['REQUEST_URI'] . "' method='post'>";
+        $form .= "<table>";
+        for($i = 0; $i<$plateau::NBROWS; $i++){
+            $form .= "<tr>";
+            for($j=0; $j < $plateau::NBCOLS; $j++){
+                $form .= "<th><button type='submit' name='active' disabled  value='" . $i . "," . $j . "'>" . $plateau->getPiece($i, $j) .
+                    "</button></th>";
+            }
+            $form .= "</tr>";
+        }
+        $form .= "</table><br/>";
+        $form .= "</form>";
+
         return $form;
     }
-
 
 }
 
