@@ -177,8 +177,20 @@ class QuantikUIGenerator
      */
     public static function getPageVictoire(array $lesPiecesDispos, int $couleurActive, int $posSelection, PlateauQuantik $plateau): string {
         $pageHTML = QuantikUIGenerator::getDebutHTML();
+        $ar1 = $lesPiecesDispos[0];
+        $ar2 = $lesPiecesDispos[1];
 
-        /* TODO */
+        $pageHTML .= "<h3>Pieces noires</h3>";
+        $pageHTML .= "<div>";
+        for ( $i = 0 ; $i<$ar1; $i++)
+           $pageHTML.= $ar1.getPieceQuantik($i);
+        $pageHTML .= "</div>";
+
+        $pageHTML .= "<h3>Pieces Blanches</h3>";
+        $pageHTML .= "<div>";
+        for ( $i = 0 ; $i<$ar1; $i++)
+            $pageHTML .= $ar1.getPieceQuantik($i);
+        $pageHTML .= "</div>";
 
         return $pageHTML . self::getFinHTML();
 

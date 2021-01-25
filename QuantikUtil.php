@@ -2,6 +2,7 @@
 
 include_once "ArrayPieceQuantik.php";
 include_once "PlateauQuantik.php";
+include_once "ActionQuantik.php";
 
 class QuantikUtil
 {
@@ -33,10 +34,13 @@ class QuantikUtil
     }
 
     static function getFormSelectionPiece(ArrayPieceQuantik $pieces) : string {
-        $form = "<form action='" . $_SERVER['REQUEST_URI'] . "' method='post'>";
+        /*return "<form action='" . $_SERVER['REQUEST_URI'] . "' method='post'>\n" .
+            self::getDivPiecesDisponibles($pieces) . "\n</form>";*/
+
+        $form = "<form action='' method='post'>";
         $form .= "<div id = 'piecesDispo'>";
         for($i = 0; $i < $pieces->getTaille(); $i++) {
-            $form .= "<button type='submit' name='active' value=" . $i . " disabled>" . $pieces->getPieceQuantik($i) .
+            $form .= "<button type='submit' name='active' disabled>" . $pieces->getPieceQuantik($i) .
                 "</button><br>";
         }
         $form .= "</div><br>";
@@ -83,13 +87,19 @@ class QuantikUtil
 
         return $form;*/
 
+        $action = new ActionQuantik($plateau);
+
         $form = "<form action='" . $_SERVER['REQUEST_URI'] . "' method='post'>";
         $form .= "<table>";
         for($i = 0; $i<$plateau::NBROWS; $i++){
             $form .= "<tr>";
             for($j=0; $j < $plateau::NBCOLS; $j++){
-                $form .= "<th><button type='submit' name='active' disabled  value='" . $i . "," . $j . "'>" . $plateau->getPiece($i, $j) .
-                    "</button></th>";
+                if($action->isValidePose($i,$j,$piece))
+                    $form .= "<td> <button type='submit' name='position' style='background-color: green'>"
+                        . $plateau->getPiece($i, $j) . "</button><br/>";
+                else
+                    $form .= "<td> <button type='submit' name='position'>" .
+                        $plateau->getPiece($i, $j) . "</button><br/>";
             }
             $form .= "</tr>";
         }
@@ -102,4 +112,5 @@ class QuantikUtil
 }
 
 // Question 7 : Le cube blanc (en supposant que les blancs jouent en premier)
+
 // Question 8 :
