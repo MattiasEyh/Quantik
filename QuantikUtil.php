@@ -33,12 +33,10 @@ class QuantikUtil
     }
 
     static function getFormSelectionPiece(ArrayPieceQuantik $pieces) : string {
-        /*return "<form action='" . $_SERVER['REQUEST_URI'] . "' method='post'>\n" .
-            self::getDivPiecesDisponibles($pieces) . "\n</form>";*/
         $form = "<form action='" . $_SERVER['REQUEST_URI'] . "' method='post'>";
         $form .= "<div id = 'piecesDispo'>";
         for($i = 0; $i < $pieces->getTaille(); $i++) {
-            $form .= "<button type='submit' name='active' disabled>" . $pieces->getPieceQuantik($i) .
+            $form .= "<button type='submit' name='active' value=" . $i . " disabled>" . $pieces->getPieceQuantik($i) .
                 "</button><br>";
         }
         $form .= "</div><br>";
