@@ -28,7 +28,7 @@ $plateauRemplis->setPiece(3, 2, PieceQuantik::initBlackCone());
 $plateauRemplis->setPiece(3, 3, PieceQuantik::initBlackCone());
 
 
-echo "Affichage du tableau remplis : \n";
+echo "Affichage du tableau rempli : \n";
 
 echo $plateauRemplis;
 
@@ -50,6 +50,10 @@ echo $plateauRemplis->getPiece(0,0). "\n";
 echo "\n";
 
 echo $chainTestSep;
+
+echo "Re-affichage du tableau rempli : \n\n";
+
+echo $plateauRemplis;
 
 echo "Affichage de print_r pour les méthodes:\n";
 echo "GetRow de 0 : \n";

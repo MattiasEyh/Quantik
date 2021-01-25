@@ -22,8 +22,8 @@ echo "Ainsi, le résultat attendu est une forme et une couleur à 0.\n\n";
 echo "Forme : " . $pieceVide->getForme() . "\n";
 echo "Couleur : " . $pieceVide->getCouleur() . "\n";
 
-$chaineTest .= ($pieceVide->getForme() == 0) ?  "\t-Test forme réussi\n" :  "\t-Test forme incorect\n";
-$chaineTest .= ($pieceVide->getCouleur() == 0) ?  "\t-Test couleur réussi" :  "\t-Test couleur incorect\n";
+$chaineTest .= ($pieceVide->getForme() == 0) ?  "\t-Test forme réussi\n" :  "\t-Test forme incorrect\n";
+$chaineTest .= ($pieceVide->getCouleur() == 0) ?  "\t-Test couleur réussi" :  "\t-Test couleur incorrect\n";
 echo $chaineTest;
 $chaineTest = "";
 
