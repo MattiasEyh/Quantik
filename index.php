@@ -4,7 +4,7 @@ include_once "QuantikUtil.php";
 include_once "ArrayPieceQuantik.php";
 include_once "PieceQuantik.php";
 
-session_start();
+//session_start();
 
 $plateauRemplis = new PlateauQuantik();
 $plateauRemplis->setPiece(0, 0, PieceQuantik::initWhiteSphere());
@@ -14,7 +14,7 @@ $plateauRemplis->setPiece(3, 1, PieceQuantik::initBlackCube());
 
 
 $ar = ArrayPieceQuantik::initPiecesBlanches();
-$piece = PieceQuantik::initBlackCylindre();
+$piece = PieceQuantik::initWhiteCube();
 
 
 echo(QuantikUtil::getDebutHTML());
