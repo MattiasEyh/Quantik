@@ -25,7 +25,7 @@ class QuantikUtil
     static function getDivPiecesDisponibles(ArrayPieceQuantik $pieces) : string {
         $div = "<div id = 'piecesDispo'><br>";
         for($i = 0; $i < $pieces->getTaille(); $i++) {
-            $div .= "<button type='submit' name='active' disabled  value=''>" . $pieces->getPieceQuantik($i) .
+            $div .= "<button type='submit' name='active' disabled>" . $pieces->getPieceQuantik($i) .
                 "</button>";
         }
         $div .= "</div>";
@@ -40,7 +40,7 @@ class QuantikUtil
         $form = "<form action='' method='post'>";
         $form .= "<div id = 'piecesDispo'>";
         for($i = 0; $i < $pieces->getTaille(); $i++) {
-            $form .= "<button type='submit' name='active' disabled>" . $pieces->getPieceQuantik($i) .
+            $form .= "<button type='submit' name='active' value=" . $i . ">" . $pieces->getPieceQuantik($i) .
                 "</button><br>";
         }
         $form .= "</div><br>";
@@ -54,7 +54,7 @@ class QuantikUtil
         for($i = 0; $i<$plateau::NBROWS; $i++){
             $form .= "<tr>";
             for($j=0; $j < $plateau::NBCOLS; $j++){
-                $form .= "<th><button type='submit' name='active' disabled  value=''>" . $plateau->getPiece($i, $j) .
+                $form .= "<th><button type='submit' name='active' disabled >" . $plateau->getPiece($i, $j) .
                     "</button></th>";
             }
             $form .= "</tr>";
@@ -95,10 +95,10 @@ class QuantikUtil
             $form .= "<tr>";
             for($j=0; $j < $plateau::NBCOLS; $j++){
                 if($action->isValidePose($i,$j,$piece))
-                    $form .= "<td> <button type='submit' name='position' style='background-color: green'>"
-                        . $plateau->getPiece($i, $j) . "</button><br/>";
+                    $form .= "<td> <button type='submit' name='position' value='" . $i . "," . $j .
+                        "' style='background-color: green'>" . $plateau->getPiece($i, $j) . "</button><br/>";
                 else
-                    $form .= "<td> <button type='submit' name='position'>" .
+                    $form .= "<td> <button type='submit' name='position' disabled>" .
                         $plateau->getPiece($i, $j) . "</button><br/>";
             }
             $form .= "</tr>";

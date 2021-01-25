@@ -124,7 +124,10 @@ class QuantikUIGenerator
      */
     public static function getDivMessageVictoire(int $couleur) : string {
         /* TODO div annonçant la couleur victorieuse et proposant un lien pour recommencer une nouvelle partie */
+        $stringCoul = $couleur == 0 ? "Blancs" : "Noirs";
         $resultat ="";
+
+        $resultat .= "<div><h4>Victoire des" . $stringCoul . "!</h4></div>";
         return $resultat;
     }
 
@@ -177,23 +180,19 @@ class QuantikUIGenerator
      */
     public static function getPageVictoire(array $lesPiecesDispos, int $couleurActive, int $posSelection, PlateauQuantik $plateau): string {
         $pageHTML = QuantikUIGenerator::getDebutHTML();
-        $ar1 = $lesPiecesDispos[0];
-        $ar2 = $lesPiecesDispos[1];
 
-        $pageHTML .= "<h3>Pieces noires</h3>";
-        $pageHTML .= "<div>";
-        for ( $i = 0 ; $i<$ar1; $i++)
-           $pageHTML.= $ar1.getPieceQuantik($i);
-        $pageHTML .= "</div>";
+        $ar1 = $lesPiecesDispos["blancs"];
+        $ar2 = $lesPiecesDispos["noirs"];
 
-        $pageHTML .= "<h3>Pieces Blanches</h3>";
-        $pageHTML .= "<div>";
-        for ( $i = 0 ; $i<$ar1; $i++)
-            $pageHTML .= $ar1.getPieceQuantik($i);
-        $pageHTML .= "</div>";
+        $pageHTML .= "<h3>Pieces blanches</h3></br><div>" . self::getDivPiecesDisponibles($ar1) . "</div><hr>";
+        $pageHTML .= "<h3>Pieces noires</h3></br><div>" . self::getDivPiecesDisponibles($ar2) . "</div><hr>";
+
+
+        $pageHTML .= $plateau.self::getDivPlateauQuantik($plateau);
+
+        $pageHTML .= self::getDivMessageVictoire($couleurActive);
 
         return $pageHTML . self::getFinHTML();
-
     }
 
 }
