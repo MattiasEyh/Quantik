@@ -34,14 +34,12 @@ class QuantikUtil
     }
 
     static function getFormSelectionPiece(ArrayPieceQuantik $pieces) : string {
-        /*return "<form action='" . $_SERVER['REQUEST_URI'] . "' method='post'>\n" .
-            self::getDivPiecesDisponibles($pieces) . "\n</form>";*/
 
         $form = "<form action='' method='post'>";
         $form .= "<div id = 'piecesDispo'>";
         for($i = 0; $i < $pieces->getTaille(); $i++) {
             $form .= "<button type='submit' name='active' value=" . $i . ">" . $pieces->getPieceQuantik($i) .
-                "</button><br>";
+                "</button>";
         }
         $form .= "</div><br>";
         $form .= "</form>";
@@ -65,27 +63,6 @@ class QuantikUtil
     }
 
     static function getFormPlateauQuantik(PlateauQuantik $plateau, PieceQuantik $piece): string{
-       /* $form ="<style>.casePlateauActivee{background-color: green;} .casePlateauDesactivee{background-color: black;}</style>";
-
-        $form .= "<form action='" . $_SERVER['REQUEST_URI'] . "' method='post'>";
-        $form .= "<table>";
-        $action = new ActionQuantik($plateau);
-        for($i = 0; $i < $plateau::NBROWS; $i++){
-            $form .= "<tr>";
-            for($j = 0; $j < $plateau::NBCOLS; $j++){
-                if($action->isValidePose($i,$j,$piece))
-                    $form .= "<td> <button type='submit' name='position' class ='casePlateauActivee' 
-                        value ='" . $i . "," . $j . "'>" . $plateau->getPiece($i, $j) . "</button><br/>";
-                else
-                    $form .= "<td> <button type='submit' name='position' class ='casePlateauDesactivee' disabled>" .
-                        $plateau->getPiece($i, $j) . "</button><br/>";
-            }
-            $form .= "</tr><br/>";
-        }
-        $form .= "</table><br/>";
-        $form .= "</form>";
-
-        return $form;*/
 
         $action = new ActionQuantik($plateau);
 

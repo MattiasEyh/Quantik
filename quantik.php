@@ -32,7 +32,11 @@ if (empty($_SESSION)) { // initialisation des variables de session
 
 $pageHTML = "";
 
+$pageHTML .= QuantikUIGenerator::getDebutHTML();
+
 $aq = new ActionQuantik($_SESSION['plateau']);
+
+$pageHTML .= QuantikUIGenerator::getDivPiecesDisponibles($_SESSION['lesBlancs'], )
 
 // on réalise les actions correspondant à l'action en cours :
     try {
@@ -71,4 +75,5 @@ switch($_SESSION['etat']) {
         exit(1);
 }
 // seul echo nécessaire toute la pageHTML a été générée dans la variable $pageHTML
+$pageHTML .= QuantikUIGenerator::getFinHTML();
 echo $pageHTML;

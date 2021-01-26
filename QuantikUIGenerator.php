@@ -68,8 +68,18 @@ class QuantikUIGenerator
      */
     public static function getDivPlateauQuantik(PlateauQuantik $p): string
     {
-        $resultat ="";
-        /* TODO */
+        $resultat = "";
+        $resultat .= "<table>";
+        for($i = 0; $i<$p::NBROWS; $i++){
+            $resultat .= "<tr>";
+            for($j=0; $j < $p::NBCOLS; $j++){
+                $resultat .= "<th><button type='submit' name='active' disabled >" . $p->getPiece($i, $j) .
+                    "</button></th>";
+            }
+            $resultat .= "</tr>";
+        }
+        $resultat .= "</table>";
+
         return $resultat;
     }
 
@@ -80,7 +90,16 @@ class QuantikUIGenerator
      */
     public static function getDivPiecesDisponibles(ArrayPieceQuantik $apq, int $pos = -1): string {
         $resultat ="";
-        /* TODO */
+
+        if ($pos != -1) {
+            $resultat .= "<div id = 'piecesDispo'><br>";
+            for ($i = 0; $i < $apq->getTaille(); $i++) {
+                $resultat .= "<button type='submit' name='active' disabled>" . $apq->getPieceQuantik($i) .
+                    "</button>";
+            }
+            $resultat .= "</div>";
+        }
+
         return $resultat;
     }
 
@@ -90,7 +109,15 @@ class QuantikUIGenerator
      */
     public static function getFormSelectionPiece(ArrayPieceQuantik $apq): string {
         $resultat = "";
-        /* TODO */
+        $resultat  .= "<form action='' method='post'>";
+        $resultat  .= "<div id = 'piecesDispo'>";
+        for($i = 0; $i < $apq->getTaille(); $i++) {
+            $resultat  .= "<button type='submit' name='active' value=" . $i . ">" . $apq->getPieceQuantik($i) .
+                "</button>";
+        }
+        $resultat  .= "</div><br>";
+        $resultat  .= "</form>";
+
         return $resultat;
     }
 
@@ -136,7 +163,7 @@ class QuantikUIGenerator
      */
     public static function getLienRecommencer():string {
         /* TODO production d'un lien pour recommencer une partie */
-        return "<p><a href=''> Recommencer ?</a></p>";
+        return "<p><a href='quantik.php?reset'> Recommencer ?</a></p>";
     }
 
     /**
@@ -147,9 +174,12 @@ class QuantikUIGenerator
      */
     public static function getPageSelectionPiece(array $lesPiecesDispos, int $couleurActive, PlateauQuantik $plateau): string {
         $pageHTML = QuantikUIGenerator::getDebutHTML();
-
-        /* TODO production de la page permettant de sélectionner une pièce */
-
+        $pageHTML .= self::getFormBoutonAnnuler();
+        $pageHTML .= $couleurActive == PieceQuantik::WHITE ? self::getFormSelectionPiece($lesPiecesDispos['blanc']) :
+                                                             self::getDivPiecesDisponibles($lesPiecesDispos['blanc']);
+        $pageHTML .= self::getDivPlateauQuantik($plateau);
+        $pageHTML .= $couleurActive == PieceQuantik::WHITE ? self::getFormSelectionPiece($lesPiecesDispos['noirs']) :
+                                                             self::getDivPiecesDisponibles($lesPiecesDispos['noirs']);
         return $pageHTML. self::getFinHTML();
     }
 
@@ -162,7 +192,7 @@ class QuantikUIGenerator
      */
     public static function getPagePosePiece(array $lesPiecesDispos, int $couleurActive, int $posSelection, PlateauQuantik $plateau): string {
         $pageHTML = QuantikUIGenerator::getDebutHTML();
-        $pieceActive = $couleurActive = PieceQuantik::WHITE ? $lesPiecesDispos[blancs][$posSelection] : $lesPiecesDispos[noirs][$posSelection];
+        $pieceActive = $couleurActive = PieceQuantik::WHITE ? $lesPiecesDispos['blancs'][$posSelection] : $lesPiecesDispos['noirs'][$posSelection];
         $pageHTML .= "<div><h1>Pièce à poser </h1><p>" . $pieceActive . "</p></div>";
         $pageHTML .= self::getFormBoutonAnnuler();
         $pageHTML .= self::getDivPiecesDisponibles($lesPiecesDispos["blancs"]);
@@ -178,7 +208,7 @@ class QuantikUIGenerator
      * @param PlateauQuantik $plateau
      * @return string
      */
-    public static function getPageVictoire(array $lesPiecesDispos, int $couleurActive, int $posSelection, PlateauQuantik $plateau): string {
+    public static function getPageVictoire(array $lesPiecesDispos, int $couleurActive, PlateauQuantik $plateau): string {
         $pageHTML = QuantikUIGenerator::getDebutHTML();
 
         $ar1 = $lesPiecesDispos["blancs"];
