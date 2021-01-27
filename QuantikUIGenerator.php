@@ -129,7 +129,28 @@ class QuantikUIGenerator
      */
     public static function getFormPlateauQuantik(PlateauQuantik $plateau, PieceQuantik $piece, int $position): string {
         $resultat ="";
+        $resultat .= "<form method='post' action='" . $_SERVER['REQUEST_URI'] . "'>";
+        $resultat .= "<input id='position' name='position' type='hidden' value='" . $position . "'/>";
+
         /* TODO code du formaire de pose associé au plateau */
+
+        $action = new ActionQuantik($plateau);
+
+        $resultat .= "<table>";
+        for($i = 0; $i<$plateau::NBROWS; $i++){
+            $resultat .= "<tr>";
+            for($j=0; $j < $plateau::NBCOLS; $j++){
+                if($action->isValidePose($i,$j,$piece))
+                    $resultat .= "<td> <button type='submit' name='posPlateau' value='" . $i . "," . $j .
+                        "' style='background-color: green'>" . $plateau->getPiece($i, $j) . "</button><br/>";
+                else
+                    $resultat .= "<td> <button type='submit' name='posPlateau' disabled>" .
+                        $plateau->getPiece($i, $j) . "</button><br/>";
+            }
+            $resultat .= "</tr>";
+        }
+        $resultat .= "</table><br/>";
+        $resultat .= "</form>";
 
         // ajout d'un formulaire pour modifier le choix de la pièce à poser
         $resultat .= self::getFormBoutonAnnuler();
@@ -174,11 +195,11 @@ class QuantikUIGenerator
      */
     public static function getPageSelectionPiece(array $lesPiecesDispos, int $couleurActive, PlateauQuantik $plateau): string {
         $pageHTML = QuantikUIGenerator::getDebutHTML();
-        $pageHTML .= self::getFormBoutonAnnuler();
+
         $pageHTML .= $couleurActive == PieceQuantik::WHITE ? self::getFormSelectionPiece($lesPiecesDispos['blanc']) :
                                                              self::getDivPiecesDisponibles($lesPiecesDispos['blanc']);
         $pageHTML .= self::getDivPlateauQuantik($plateau);
-        $pageHTML .= $couleurActive == PieceQuantik::WHITE ? self::getFormSelectionPiece($lesPiecesDispos['noirs']) :
+        $pageHTML .= $couleurActive == PieceQuantik::BLACK ? self::getFormSelectionPiece($lesPiecesDispos['noirs']) :
                                                              self::getDivPiecesDisponibles($lesPiecesDispos['noirs']);
         return $pageHTML. self::getFinHTML();
     }

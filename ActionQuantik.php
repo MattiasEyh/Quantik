@@ -1,6 +1,5 @@
 <?php
 
-
 class ActionQuantik
 {
     /**
@@ -141,12 +140,19 @@ class ActionQuantik
      */
     private static function ComboWin(array $pieces) : bool {
         $sum = 0;
-        for($i = 0; $i < PlateauQuantik::NBROWS; $i++)
-            $sum += $pieces[$i]->getForme();
-        // Comme les cases contienent toutes des formes diffèrentes :
-        // "la combinaison est gagnante" <=> $sum == 10
-        return $sum == PieceQuantik::CUBE + PieceQuantik::SPHERE
-            + PieceQuantik::CYLINDRE + PieceQuantik::CONE;
+        $formes = array(0,0,0,0);
+        // D'après les règles, on peux assimiler la condition de victoire à
+        // Effectuer la pose d'une pièce remplissant totalement une "zone"
+        // Sans que cette zone ne contienne de formes en double
+        for($i = 0; $i < PlateauQuantik::NBROWS; $i++){
+            // Une des cases n'est pas remplie
+            if($pieces[$i]->getForme() == PieceQuantik::VOID)
+                return false;
+            // Si une piece est en double
+            if(1 <= $formes[$pieces[$i]->getForme() - 1]++)
+                return false;
+        }
+        return true;
     }
 
     /**

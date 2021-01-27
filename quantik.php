@@ -42,10 +42,22 @@ $aq = new ActionQuantik($_SESSION['plateau']);
             switch ($_GET['action']) {
                 case 'choisirPiece':
                     /* TODO */
-
+                    $_SESSION['etat'] = 'posePiece';
                     break;
                 case 'poserPiece':
                     /* TODO : action pouvant conduire à 2 états selon le résultat : posePiece ou victoire */
+                    $position = $_POST['position'];
+                    if ($_SESSION['couleurActive'] == PieceQuantik::WHITE) {
+                        $piece = $_SESSION['lesBlancs']->getPieceQuantik($position);
+                        $_SESSION['lesBlancs']->removePieceQuantik($position);
+                    } else {
+                        $piece=  $_SESSION['lesNoirs']->getPieceQuantik($position);
+                        $_SESSION['lesNoirs']->removePieceQuantik($position);
+                    }
+
+                    $row = explode(',', $_POST['posPlateau'])[0];
+                    $col = explode(',', $_POST['posPlateau'])[1];
+
                     break;
                 case 'annulerChoix':
                     /* TODO */
