@@ -84,11 +84,11 @@ class ActionQuantik
         if($piece->getForme() == PieceQuantik::VOID)
             return false;
         // La case est innocupée
-        if($this->plateau->getPiece($rowNum, $colNum)->getCouleur() != PieceQuantik::VOID)
+        if($this->plateau->getPiece($rowNum, $colNum)->getForme() != PieceQuantik::VOID)
             return false;
         // La ligne ne contient pas de piece de même forme
         $row = $this->plateau->getRow($rowNum);
-        if(!self::isPieceValide($row, $piece))
+        if(!self::isPieceValide($row, $piece) )
             return false;
         // La colonne ne contient pas de piece de même forme
         $col = $this->plateau->getCol($colNum);
@@ -166,7 +166,7 @@ class ActionQuantik
         for($i = 0; $i < PlateauQuantik::NBROWS; $i++)
             // Si les cases de $pieces sont toutes occupées, d'après les règles
             // une des cases contient déjà une pièce de la forme $p->getForme()
-            if($pieces[$i]->getForme() == $p->getForme())
+            if($pieces[$i]->getForme() == $p->getForme() && $pieces[$i]->getCouleur() != $p->getCouleur())
                 return false;
         return true;
     }

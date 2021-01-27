@@ -14,7 +14,7 @@ $plateauRemplis->setPiece(3, 1, PieceQuantik::initBlackCube());
 
 
 $ar = ArrayPieceQuantik::initPiecesBlanches();
-$piece = PieceQuantik::initWhiteCube();
+$piece = PieceQuantik::initWhiteCylindre();
 
 
 echo(QuantikUtil::getDebutHTML());

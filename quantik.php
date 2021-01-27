@@ -36,14 +36,13 @@ $pageHTML .= QuantikUIGenerator::getDebutHTML();
 
 $aq = new ActionQuantik($_SESSION['plateau']);
 
-$pageHTML .= QuantikUIGenerator::getDivPiecesDisponibles($_SESSION['lesBlancs'], )
-
 // on réalise les actions correspondant à l'action en cours :
     try {
         if (isset($_GET['action'])) {
             switch ($_GET['action']) {
                 case 'choisirPiece':
                     /* TODO */
+
                     break;
                 case 'poserPiece':
                     /* TODO : action pouvant conduire à 2 états selon le résultat : posePiece ou victoire */
