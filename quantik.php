@@ -10,7 +10,9 @@ require_once("ActionQuantik.php");
 require_once("QuantikException.php");
 require_once("QuantikUIGenerator.php");
 
+//session_abort();
 session_start();
+
 
 if (isset($_GET['reset'])) { //pratique pour réinitialiser une partie à la main
     unset($_SESSION['etat']);
@@ -38,8 +40,8 @@ $aq = new ActionQuantik($_SESSION['plateau']);
 
 // on réalise les actions correspondant à l'action en cours :
     try {
-        if (isset($_GET['action'])) {
-            switch ($_GET['action']) {
+        if (isset($_POST['action'])) {
+            switch ($_POST['action']) {
                 case 'choisirPiece':
                     $_SESSION['etat'] = 'posePiece';
                     break;
@@ -58,20 +60,19 @@ $aq = new ActionQuantik($_SESSION['plateau']);
                     }
                     $row = explode(',', $_POST['posPlateau'])[0];
                     $col = explode(',', $_POST['posPlateau'])[1];
-                    $aq = new ActionQuantik($_SESSION['plateau']->poserPiece);
+                    $aq = new ActionQuantik($_SESSION['plateau']);
                     $aq->posePiece($row, $col, $piece);
                     $dir = PlateauQuantik::getCornerFromCoord($row, $col);
-                    if($aq->isRowWin($row) || $aq->isColWin($col) || $aq->isCornerWin($col) ||
-                        $aq->isPlayerInStalemate($setOpposant)){
-                        $_SESSION['action'] = 'victoire';
+                    if($aq->isRowWin($row) || $aq->isColWin($col) || $aq->isCornerWin($dir)){
+                        $_SESSION['etat'] = 'victoire';
                     } else {
                         $_SESSION['couleurActive'] = $_SESSION['couleurActive'] == PieceQuantik::WHITE ?
                             PieceQuantik::BLACK : PieceQuantik::WHITE;
-                        $_SESSION['action'] = 'choixPiece';
+                        $_SESSION['etat'] = 'choixPiece';
                     }
                     break;
                 case 'annulerChoix':
-                    $_SESSION['action'] = 'choixPiece';
+                    $_SESSION['etat'] = 'choixPiece';
                     break;
                 default:
                     throw new QuantikException("Action non valide");
@@ -82,14 +83,16 @@ $aq = new ActionQuantik($_SESSION['plateau']);
             $_SESSION['message'] = $exception->__toString();
     }
 
+
 switch($_SESSION['etat']) {
     case 'choixPiece':
+        echo("Ta soeur");
         $pageHTML .= QuantikUIGenerator::getPageSelectionPiece(['lesBlancs' => $_SESSION['lesBlancs'],
             'lesNoirs' => $_SESSION['lesNoirs']], $_SESSION['couleurActive'], $_SESSION['plateau']);
         break;
     case 'posePiece':
         $pageHTML .= QuantikUIGenerator::getPagePosePiece(['lesBlancs' => $_SESSION['lesBlancs'],
-            'lesNoirs' => $_SESSION['lesNoirs']], $_SESSION['couleurActive'], $_GET['position'], $_SESSION['plateau']);
+            'lesNoirs' => $_SESSION['lesNoirs']], $_SESSION['couleurActive'], $_POST['position'], $_SESSION['plateau']);
         break;
     case 'victoire':
         $pageHTML .= QuantikUIGenerator::getPageVictoire(['lesBlancs' => $_SESSION['lesBlancs'],
@@ -100,5 +103,6 @@ switch($_SESSION['etat']) {
         exit(1);
 }
 // seul echo nécessaire toute la pageHTML a été générée dans la variable $pageHTML
+$pageHTML .= QuantikUIGenerator::getLienRecommencer();
 $pageHTML .= QuantikUIGenerator::getFinHTML();
 echo $pageHTML;

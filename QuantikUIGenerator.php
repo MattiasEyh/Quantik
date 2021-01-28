@@ -91,14 +91,14 @@ class QuantikUIGenerator
     public static function getDivPiecesDisponibles(ArrayPieceQuantik $apq, int $pos = -1): string {
         $resultat ="";
 
-        if ($pos != -1) {
-            $resultat .= "<div id = 'piecesDispo'><br>";
-            for ($i = 0; $i < $apq->getTaille(); $i++) {
-                $resultat .= "<button type='submit' name='active' disabled>" . $apq->getPieceQuantik($i) .
-                    "</button>";
-            }
-            $resultat .= "</div>";
+        $resultat .= "<div id = 'piecesDispo'><br>";
+        for ($i = 0; $i < $apq->getTaille(); $i++) {
+            $resultat .= "<button type='submit' name='position' disabled>" . $apq->getPieceQuantik($i) .
+                "</button>";
         }
+        $resultat .= "</div>";
+
+
 
         return $resultat;
     }
@@ -109,11 +109,11 @@ class QuantikUIGenerator
      */
     public static function getFormSelectionPiece(ArrayPieceQuantik $apq): string {
         $resultat = "";
-        $resultat .= "<form action='' method='post'>";
+        $resultat .= "<form action='" . $_SERVER['REQUEST_URI'] . "' method='post'>";
         $resultat .= "<input id='action' name='action' type='hidden' value='choisirPiece'/>";
         $resultat  .= "<div id = 'piecesDispo'>";
         for($i = 0; $i < $apq->getTaille(); $i++) {
-            $resultat  .= "<button type='submit' name='active' value=" . $i . ">" . $apq->getPieceQuantik($i) .
+            $resultat  .= "<button type='submit' name='position' value=" . $i . ">" . $apq->getPieceQuantik($i) .
                 "</button>";
         }
         $resultat  .= "</div><br>";
@@ -188,7 +188,7 @@ class QuantikUIGenerator
      */
     public static function getLienRecommencer():string {
         /* TODO production d'un lien pour recommencer une partie */
-        return "<p><a href='quantik.php?reset'> Recommencer ?</a></p>";
+        return "<p><a href='" . $_SERVER['REQUEST_URI'] ."?reset=0' > Recommencer ?</a></p>";
     }
 
     /**
@@ -203,6 +203,7 @@ class QuantikUIGenerator
         $pageHTML .= $couleurActive == PieceQuantik::WHITE ? self::getFormSelectionPiece($lesPiecesDispos['lesBlancs']) :
                                                              self::getDivPiecesDisponibles($lesPiecesDispos['lesBlancs']);
         $pageHTML .= self::getDivPlateauQuantik($plateau);
+
         $pageHTML .= $couleurActive == PieceQuantik::BLACK ? self::getFormSelectionPiece($lesPiecesDispos['lesNoirs']) :
                                                              self::getDivPiecesDisponibles($lesPiecesDispos['lesNoirs']);
         return $pageHTML;
@@ -217,11 +218,11 @@ class QuantikUIGenerator
      */
     public static function getPagePosePiece(array $lesPiecesDispos, int $couleurActive, int $posSelection, PlateauQuantik $plateau): string {
         $pageHTML = "";
-        $pieceActive = $couleurActive = PieceQuantik::WHITE ? $lesPiecesDispos['blancs'][$posSelection] : $lesPiecesDispos['noirs'][$posSelection];
+        $pieceActive = $couleurActive == PieceQuantik::WHITE ? $lesPiecesDispos['lesBlancs']->getPieceQuantik($posSelection) : $lesPiecesDispos['lesNoirs']->getPieceQuantik($posSelection);
         $pageHTML .= "<div><h1>Pièce à poser </h1><p>" . $pieceActive . "</p></div>";
         $pageHTML .= self::getFormBoutonAnnuler();
         $pageHTML .= self::getDivPiecesDisponibles($lesPiecesDispos["lesBlancs"]);
-        $pageHTML .= self::getFormPlateauQuantik();
+        $pageHTML .= self::getFormPlateauQuantik($plateau, $pieceActive, $posSelection);
         $pageHTML .= self::getDivPiecesDisponibles($lesPiecesDispos["lesNoirs"]);
         return $pageHTML;
     }
