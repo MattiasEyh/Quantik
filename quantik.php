@@ -41,26 +41,37 @@ $aq = new ActionQuantik($_SESSION['plateau']);
         if (isset($_GET['action'])) {
             switch ($_GET['action']) {
                 case 'choisirPiece':
-                    /* TODO */
                     $_SESSION['etat'] = 'posePiece';
                     break;
                 case 'poserPiece':
-                    /* TODO : action pouvant conduire à 2 états selon le résultat : posePiece ou victoire */
                     $position = $_POST['position'];
+                    $piece = PieceQuantik::initVoid();
+                    $setOpposant = new ArrayPieceQuantik();
                     if ($_SESSION['couleurActive'] == PieceQuantik::WHITE) {
                         $piece = $_SESSION['lesBlancs']->getPieceQuantik($position);
                         $_SESSION['lesBlancs']->removePieceQuantik($position);
+                        $setOpposant = $_SESSION['lesNoirs'];
                     } else {
                         $piece=  $_SESSION['lesNoirs']->getPieceQuantik($position);
                         $_SESSION['lesNoirs']->removePieceQuantik($position);
+                        $setOpposant = $_SESSION['lesBlancs'];
                     }
-
                     $row = explode(',', $_POST['posPlateau'])[0];
                     $col = explode(',', $_POST['posPlateau'])[1];
-
+                    $aq = new ActionQuantik($_SESSION['plateau']->poserPiece);
+                    $aq->posePiece($row, $col, $piece);
+                    $dir = PlateauQuantik::getCornerFromCoord($row, $col);
+                    if($aq->isRowWin($row) || $aq->isColWin($col) || $aq->isCornerWin($col) ||
+                        $aq->isPlayerInStalemate($setOpposant)){
+                        $_SESSION['action'] = 'victoire';
+                    } else {
+                        $_SESSION['couleurActive'] = $_SESSION['couleurActive'] == PieceQuantik::WHITE ?
+                            PieceQuantik::BLACK : PieceQuantik::WHITE;
+                        $_SESSION['action'] = 'choixPiece';
+                    }
                     break;
                 case 'annulerChoix':
-                    /* TODO */
+                    $_SESSION['action'] = 'choixPiece';
                     break;
                 default:
                     throw new QuantikException("Action non valide");
@@ -69,17 +80,20 @@ $aq = new ActionQuantik($_SESSION['plateau']);
     } catch (QuantikException $exception) {
             $_SESSION['etat'] = 'bug';
             $_SESSION['message'] = $exception->__toString();
-        }
+    }
 
 switch($_SESSION['etat']) {
     case 'choixPiece':
-        /* TODO */
+        $pageHTML .= QuantikUIGenerator::getPageSelectionPiece(['lesBlancs' => $_SESSION['lesBlancs'],
+            'lesNoirs' => $_SESSION['lesNoirs']], $_SESSION['couleurActive'], $_SESSION['plateau']);
         break;
     case 'posePiece':
-        /* TODO */
+        $pageHTML .= QuantikUIGenerator::getPagePosePiece(['lesBlancs' => $_SESSION['lesBlancs'],
+            'lesNoirs' => $_SESSION['lesNoirs']], $_SESSION['couleurActive'], $_GET['position'], $_SESSION['plateau']);
         break;
     case 'victoire':
-        /* TODO */
+        $pageHTML .= QuantikUIGenerator::getPageVictoire(['lesBlancs' => $_SESSION['lesBlancs'],
+            'lesNoirs' => $_SESSION['lesNoirs']], $_SESSION['couleurActive'], $_SESSION['plateau']);
         break;
     default: // sans doute etape=bug
         echo QuantikUIGenerator::getPageErreur($_SESSION['message']);

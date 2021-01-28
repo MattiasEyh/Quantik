@@ -125,6 +125,27 @@ class ActionQuantik
         return $this->plateau;
     }
 
+    public function isPlayerInStalemate(ArrayPieceQuantik $playerSet) : bool {
+        $formesTestees = array(1,0,0,0,0);
+        for($i = 0; $i < $playerSet->getTaille(); $i++){
+            if(1 > $formesTestees[$playerSet->getPieceQuantik($i)->getForme()]++) {
+                if(existValidePose($playerSet->getPieceQuantik($i)))
+                    return true;
+            }
+        }
+        return true;
+    }
+
+    private function existValidePose(PieceQuantik $piece) : bool {
+        for($i = 0; $i < PlateauQuantik::NBROWS; $i++){
+            for($j = 0; $j < PlateauQuantik::NBCOLS; $j++){
+                if($this->isValidePose($i, $j, $piece))
+                    return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * méthode ComboWin
      * Indique si la "région" d'un plateau passée en paramètre correspond à une

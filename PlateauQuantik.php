@@ -84,8 +84,7 @@ class PlateauQuantik
      * @param int $numRow
      * @return array
      */
-    public function getRow(int $numRow) : array
-    {
+    public function getRow(int $numRow) : array {
         return $this->cases[$numRow];
     }
 
@@ -95,8 +94,7 @@ class PlateauQuantik
      * @param int $numCol
      * @return array
      */
-    public function getCol(int $numCol) : array
-    {
+    public function getCol(int $numCol) : array {
         return  array ($this->cases[0][$numCol], $this->cases[1][$numCol],
             $this->cases[2][$numCol], $this->cases[3][$numCol]);
     }
@@ -148,5 +146,3 @@ class PlateauQuantik
         }
     }
 }
-
-?>
