@@ -62,7 +62,8 @@ try {
                 $aq = new ActionQuantik($_SESSION['plateau']);
                 $aq->posePiece($row, $col, $piece);
                 $dir = PlateauQuantik::getCornerFromCoord($row, $col);
-                if($aq->isRowWin($row) || $aq->isColWin($col) || $aq->isCornerWin($dir)){
+                if($aq->isRowWin($row) || $aq->isColWin($col) || $aq->isCornerWin($dir)
+                    || $aq->isPlayerInStalemate($setOpposant)){
                     $_SESSION['etat'] = 'victoire';
                 } else {
                     $_SESSION['couleurActive'] = $_SESSION['couleurActive'] == PieceQuantik::WHITE ?

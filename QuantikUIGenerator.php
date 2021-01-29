@@ -152,7 +152,7 @@ class QuantikUIGenerator
             for($j=0; $j < $plateau::NBCOLS; $j++){
                 if($aq->isValidePose($i,$j,$piece))
                     $resultat .= "<td class='dataPlateau'> <input class='inputPlateau' type='submit' name='posPlateau' value='" . $i . "," . $j .
-                        "' style='background-color: green'></input>" . self::getImageFromPiece($plateau->getPiece($i, $j)) . "</td>";
+                        "' style='background-color: dodgerblue'></input>" . self::getImageFromPiece($plateau->getPiece($i, $j)) . "</td>";
                 else
                     $resultat .= "<td class='dataPlateau'> <input class='inputPlateau' type='submit' name='posPlateau' disabled></input>" .
                         self::getImageFromPiece($plateau->getPiece($i, $j)) . "<td/>";
@@ -274,7 +274,7 @@ class QuantikUIGenerator
     }
 
     private static function getImageFromPiece(PieceQuantik $piece){
-        $src = "";// ou chemin
+        $src = "images/";// ou chemin
         switch ($piece->__toString()){
             case "(    )":
                 $src .= "void.png";

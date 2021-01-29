@@ -129,8 +129,8 @@ class ActionQuantik
         $formesTestees = array(1,0,0,0,0);
         for($i = 0; $i < $playerSet->getTaille(); $i++){
             if(1 > $formesTestees[$playerSet->getPieceQuantik($i)->getForme()]++) {
-                if(existValidePose($playerSet->getPieceQuantik($i)))
-                    return true;
+                if(self::existValidePose($playerSet->getPieceQuantik($i)))
+                    return false;
             }
         }
         return true;
