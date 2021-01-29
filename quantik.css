@@ -1,0 +1,184 @@
+html {
+  background: linear-gradient(to bottom, #57c1eb 0%,#246fa8 100%);
+  height:100%;
+}
+
+.inputPlateau, .botEdge, .sideEdge, .selectPiece{
+  background-color:rgba(255, 255, 255, .35);
+}
+#plateau, .dataPlateau, .rowPlateau, #tablePlateau, .piecesDispo , .pieceField{
+  background-color:rgba(0, 0, 0, 0);
+}
+
+#plateau { 
+  position:relative;
+  top:-300px;
+  right:-500px;
+  transform: rotateX(60deg) rotateY(0deg) rotateZ(-45deg);
+  width:800px;
+  height:800px;
+  //box-shadow: -15px 15px 50px white;
+}
+tr { 
+  display: flex; 
+  width: 100%; }
+td{
+  display:grid;
+}
+.inputPlateau{
+  //background-color:#FFF0E0;
+  border:solid;
+  width:100%;
+    grid-column: 1;
+  grid-row: 1;
+  height:100%;
+  text-indent:-9999px;
+}
+.inputPlateau:hover{
+  width:200px;
+  height:200px;
+  background-color:green;
+}
+.piece{
+  //box-shadow: -15px 15px 50px black;
+  width:200px;
+  height:200px;
+  pointer-events: none;
+  position:relative;
+  top:-25%;
+  right:-20%;
+  grid-column: 1;
+  grid-row: 1;
+  -webkit-transform: skewX(-42deg)  skewY(28deg);
+}
+
+.botEdges{
+  position:relative;
+  display: flex;
+  left:-1.99%;
+  flex-direction: row;
+  transform: skewX(-45deg)  skewY(0deg);
+}
+
+.botEdge{
+  //background-color:#FFF0E0;
+  border:solid;
+  position:relative;
+  height: 30px;
+  width: 200px;
+  //transform: skewX(-45deg)  skewY(0deg);
+}
+
+.sideEdges{
+  position:relative;
+  display: flex;
+  top:-54.4%;
+  left:-52%;
+  flex-direction: row;
+  transform: rotate(-90deg) skewX(45deg)  skewY(0deg);
+}
+
+.sideEdge{
+  //background-color:#FFF0E0;
+  border:solid;
+  position:relative;
+  height: 30px;
+  width: 200px;
+  //transform: skewX(-45deg)  skewY(0deg);
+}
+
+#lesBlancs + .piecesDispo{
+  position:relative;
+  width:800px;
+  display: flex;
+  flex-wrap:wrap;
+  flex-direction: row;
+  height:400px;
+  top:50px;
+  left:20px;
+  justify-content: flex-end;
+   align-items: flex-end;
+  transform: rotateX(60deg) rotateY(0deg) rotateZ(-45deg);
+}
+
+.pieceField{
+  display:grid;
+  width:200px;
+  height:200px;
+}
+
+.selectPiece{
+ border:solid;
+  width:100%;
+    grid-column: 1;
+  grid-row: 1;
+  height:100%;
+}
+
+.selectPiece:hover{
+  background-color:green;
+}
+
+.botEdgesSelect{
+  z-index: -2;
+  position:relative;
+  display: flex;
+  left:-8.59%;
+  top:-100%;
+  flex-direction: row;
+  transform: skewX(-45deg)  skewY(0deg);
+}
+
+.sideEdgesSelect{
+  z-index: -1;
+  position:relative;
+  display: flex;
+  top:-283%;
+  left:-58%;
+  flex-direction: row;
+  transform: rotate(-90deg) skewX(45deg)  skewY(0deg);
+}
+
+
+#lesNoirs + .piecesDispo{
+  position:relative;
+  width:400px;
+  display: flex;
+  flex-wrap:wrap;
+  flex-direction: column;
+  height:800px;
+  top:-1349px;
+  left:1182px;
+  justify-content: flex-end;
+   align-items: flex-end;
+  transform: rotateX(60deg) rotateY(0deg) rotateZ(-45deg);
+}
+
+#annuler {
+  position: absolute;
+}
+
+#reset{
+  position: absolute;
+}
+
+h1 {
+  position: absolute;
+}
+
+.quantik{
+  position: absolute;
+  height: 900px;
+  width: 1810px;
+
+}
+
+input , .inputPlateau{
+  border:solid;
+}
+
+*{
+  border-collapse: collapse;
+  padding:0;
+  border-spacing:0;
+}
