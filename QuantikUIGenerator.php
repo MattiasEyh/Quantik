@@ -183,7 +183,7 @@ class QuantikUIGenerator
         return
             "<div>
                 <form method='post' action='" .self::functionGetRefNoRest() . "'>
-                    <input id='annuler' name='action' type='submit' value='annulerChoix'> Annuler son Choix </input>
+                    <button id='annuler' name='action' type='submit' value='annulerChoix'> Annuler son choix </input>
                 </form>
             </div>";
     }
@@ -197,7 +197,7 @@ class QuantikUIGenerator
         $stringCoul = $couleur == PieceQuantik::WHITE ? "Blancs" : "Noirs";
         $resultat ="";
 
-        $resultat .= "<div><h4>Victoire des " . $stringCoul . "!</h4></div>";
+        $resultat .= "<div id='victoire'><h4>Victoire des " . $stringCoul . "!</h4></div>";
         return $resultat;
     }
 
@@ -237,7 +237,6 @@ class QuantikUIGenerator
     public static function getPagePosePiece(array $lesPiecesDispos, int $couleurActive, int $posSelection, PlateauQuantik $plateau): string {
         $pageHTML = "";
         $pieceActive = $couleurActive == PieceQuantik::WHITE ? $lesPiecesDispos['lesBlancs']->getPieceQuantik($posSelection) : $lesPiecesDispos['lesNoirs']->getPieceQuantik($posSelection);
-        $pageHTML .= "<div></div>";
         $pageHTML .= self::getFormBoutonAnnuler();
         $pageHTML .= "<div id='lesBlancs'></div>";
         $pageHTML .= self::getDivPiecesDisponibles($lesPiecesDispos["lesBlancs"]);
@@ -262,11 +261,12 @@ class QuantikUIGenerator
 
         $pageHTML .= "<div id='lesBlancs'></div>";
         $pageHTML .= self::getDivPiecesDisponibles($ar1) ;
+        $pageHTML .= self::getDivPlateauQuantik($plateau);
         $pageHTML .= "<div id='lesNoirs'></div>";
         $pageHTML .= self::getDivPiecesDisponibles($ar2) ;
 
 
-        $pageHTML .= $plateau.self::getDivPlateauQuantik($plateau);
+
 
         $pageHTML .= self::getDivMessageVictoire($couleurActive);
 

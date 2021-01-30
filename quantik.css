@@ -154,10 +154,20 @@ input.inputPlateau:hover:enabled {
 
 #annuler {
   position: absolute;
+  top: 0;
+  left: 50%;
 }
 
 #reset{
-  position: absolute;
+  position: fixed;
+  top: 0%;
+  left: 0%;
+}
+
+#victoire{
+  position: fixed;
+  top: 70%;
+  font-size: larger;
 }
 
 h1 {
@@ -165,7 +175,7 @@ h1 {
 }
 
 .quantik{
-  position: absolute;
+  position: fixed;
   height: 900px;
   width: 1810px;
 
