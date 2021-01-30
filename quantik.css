@@ -34,9 +34,7 @@ td{
   height:100%;
   text-indent:-9999px;
 }
-.inputPlateau:hover{
-  width:200px;
-  height:200px;
+input.inputPlateau:hover:enabled {
   background-color:green;
 }
 .piece{
@@ -115,8 +113,8 @@ td{
   height:100%;
 }
 
-.selectPiece:hover{
-  background-color:green;
+.selectPiece:hover:enabled {
+  background-color:rgba(0, 166, 255, 35);
 }
 
 .botEdgesSelect{
@@ -155,11 +153,15 @@ td{
 }
 
 #annuler {
-  position: absolute;
+  position: fixed;
+  top:0%;
+  right:50%;
 }
 
 #reset{
-  position: absolute;
+  position: fixed;
+  top:0%;
+  left:0%;
 }
 
 h1 {
@@ -182,3 +184,4 @@ input , .inputPlateau{
   padding:0;
   border-spacing:0;
 }
+
