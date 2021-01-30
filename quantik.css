@@ -10,26 +10,26 @@ html {
   background-color:rgba(0, 0, 0, 0);
 }
 
-#plateau { 
+#plateau {
   position:relative;
   top:-300px;
   right:-500px;
   transform: rotateX(60deg) rotateY(0deg) rotateZ(-45deg);
   width:800px;
   height:800px;
-  //box-shadow: -15px 15px 50px white;
+//box-shadow: -15px 15px 50px white;
 }
-tr { 
-  display: flex; 
+tr {
+  display: flex;
   width: 100%; }
 td{
   display:grid;
 }
 .inputPlateau{
-  //background-color:#FFF0E0;
+//background-color:#FFF0E0;
   border:solid;
   width:100%;
-    grid-column: 1;
+  grid-column: 1;
   grid-row: 1;
   height:100%;
   text-indent:-9999px;
@@ -38,7 +38,7 @@ input.inputPlateau:hover:enabled {
   background-color:green;
 }
 .piece{
-  //box-shadow: -15px 15px 50px black;
+//box-shadow: -15px 15px 50px black;
   width:200px;
   height:200px;
   pointer-events: none;
@@ -59,12 +59,12 @@ input.inputPlateau:hover:enabled {
 }
 
 .botEdge{
-  //background-color:#FFF0E0;
+//background-color:#FFF0E0;
   border:solid;
   position:relative;
   height: 30px;
   width: 200px;
-  //transform: skewX(-45deg)  skewY(0deg);
+//transform: skewX(-45deg)  skewY(0deg);
 }
 
 .sideEdges{
@@ -77,12 +77,12 @@ input.inputPlateau:hover:enabled {
 }
 
 .sideEdge{
-  //background-color:#FFF0E0;
+//background-color:#FFF0E0;
   border:solid;
   position:relative;
   height: 30px;
   width: 200px;
-  //transform: skewX(-45deg)  skewY(0deg);
+//transform: skewX(-45deg)  skewY(0deg);
 }
 
 #lesBlancs + .piecesDispo{
@@ -95,7 +95,7 @@ input.inputPlateau:hover:enabled {
   top:50px;
   left:20px;
   justify-content: flex-end;
-   align-items: flex-end;
+  align-items: flex-end;
   transform: rotateX(60deg) rotateY(0deg) rotateZ(-45deg);
 }
 
@@ -106,9 +106,9 @@ input.inputPlateau:hover:enabled {
 }
 
 .selectPiece{
- border:solid;
+  border:solid;
   width:100%;
-    grid-column: 1;
+  grid-column: 1;
   grid-row: 1;
   height:100%;
 }
@@ -148,20 +148,26 @@ input.inputPlateau:hover:enabled {
   top:-1349px;
   left:1182px;
   justify-content: flex-end;
-   align-items: flex-end;
+  align-items: flex-end;
   transform: rotateX(60deg) rotateY(0deg) rotateZ(-45deg);
 }
 
 #annuler {
-  position: fixed;
-  top:0%;
-  right:50%;
+  position: absolute;
+  top: 0;
+  left: 50%;
 }
 
 #reset{
   position: fixed;
-  top:0%;
-  left:0%;
+  top: 0%;
+  left: 0%;
+}
+
+#victoire{
+  position: fixed;
+  top: 70%;
+  font-size: larger;
 }
 
 h1 {
@@ -169,7 +175,7 @@ h1 {
 }
 
 .quantik{
-  position: absolute;
+  position: fixed;
   height: 900px;
   width: 1810px;
 
@@ -184,4 +190,3 @@ input , .inputPlateau{
   padding:0;
   border-spacing:0;
 }
-

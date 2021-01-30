@@ -152,7 +152,7 @@ class QuantikUIGenerator
             for($j=0; $j < $plateau::NBCOLS; $j++){
                 if($aq->isValidePose($i,$j,$piece))
                     $resultat .= "<td class='dataPlateau'> <input class='inputPlateau' type='submit' name='posPlateau' value='" . $i . "," . $j .
-                        "' style='background-color: dodgerblue'>" . self::getImageFromPiece($plateau->getPiece($i, $j)) . "</td>";
+                        "' style='background-color: dodgerblue'></input>" . self::getImageFromPiece($plateau->getPiece($i, $j)) . "</td>";
                 else
                     $resultat .= "<td class='dataPlateau'> <input class='inputPlateau' type='submit' name='posPlateau' disabled></input>" .
                         self::getImageFromPiece($plateau->getPiece($i, $j)) . "<td/>";
@@ -194,10 +194,10 @@ class QuantikUIGenerator
      */
     public static function getDivMessageVictoire(int $couleur) : string {
         /* TODO div annonçant la couleur victorieuse et proposant un lien pour recommencer une nouvelle partie */
-        $stringCoul = $couleur == PieceQuantik::WHITE ? "blancs" : "noirs";
+        $stringCoul = $couleur == PieceQuantik::WHITE ? "Blancs" : "Noirs";
         $resultat ="";
 
-        $resultat .= "<div><h4>Victoire des " . $stringCoul . "!</h4></div>";
+        $resultat .= "<div id='victoire'><h4>Victoire des " . $stringCoul . "!</h4></div>";
         return $resultat;
     }
 
@@ -261,9 +261,12 @@ class QuantikUIGenerator
 
         $pageHTML .= "<div id='lesBlancs'></div>";
         $pageHTML .= self::getDivPiecesDisponibles($ar1) ;
-        $pageHTML .= $plateau.self::getDivPlateauQuantik($plateau);
+        $pageHTML .= self::getDivPlateauQuantik($plateau);
         $pageHTML .= "<div id='lesNoirs'></div>";
         $pageHTML .= self::getDivPiecesDisponibles($ar2) ;
+
+
+
 
         $pageHTML .= self::getDivMessageVictoire($couleurActive);
 
@@ -271,7 +274,7 @@ class QuantikUIGenerator
     }
 
     private static function getImageFromPiece(PieceQuantik $piece){
-        $src = "";// ou chemin
+        $src = "images/";// ou chemin
         switch ($piece->__toString()){
             case "(    )":
                 $src .= "void.png";
