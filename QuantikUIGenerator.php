@@ -28,7 +28,7 @@ class QuantikUIGenerator
         <link rel=\"stylesheet\" type=\"text/css\" href=\"quantik.css\" />
     </head>
     <body>
-        <h1 class=\"quantik\">$title</h1>
+        <h1 class='title'>$title</h1>
         <div class='quantik'>\n";
     }
 
@@ -127,7 +127,6 @@ class QuantikUIGenerator
         for($i = 0; $i < $apq->getTaille(); $i++) {
             $resultat  .= "<div class='pieceField'> <input class='selectPiece' type='submit' name='position' value=" . $i . "></input>" . self::getImageFromPiece($apq->getPieceQuantik($i)) ."</div>";
         }
-        $resultat  .= "<br>";
         $resultat  .= "</form>";
 
         return $resultat;
@@ -152,7 +151,7 @@ class QuantikUIGenerator
             for($j=0; $j < $plateau::NBCOLS; $j++){
                 if($aq->isValidePose($i,$j,$piece))
                     $resultat .= "<td class='dataPlateau'> <input class='inputPlateau' type='submit' name='posPlateau' value='" . $i . "," . $j .
-                        "' style='background-color: dodgerblue'></input>" . self::getImageFromPiece($plateau->getPiece($i, $j)) . "</td>";
+                        "' style='background-color: deepskyblue'></input>" . self::getImageFromPiece($plateau->getPiece($i, $j)) . "</td>";
                 else
                     $resultat .= "<td class='dataPlateau'> <input class='inputPlateau' type='submit' name='posPlateau' disabled></input>" .
                         self::getImageFromPiece($plateau->getPiece($i, $j)) . "<td/>";
@@ -181,7 +180,7 @@ class QuantikUIGenerator
      */
     public static function getFormBoutonAnnuler() : string {
         return
-            "<div>
+            "<div id='annulerDiv'>
                 <form method='post' action='" .self::functionGetRefNoRest() . "'>
                     <button id='annuler' name='action' type='submit' value='annulerChoix'> Annuler son choix </input>
                 </form>
@@ -194,7 +193,7 @@ class QuantikUIGenerator
      */
     public static function getDivMessageVictoire(int $couleur) : string {
         /* TODO div annonçant la couleur victorieuse et proposant un lien pour recommencer une nouvelle partie */
-        $stringCoul = $couleur == PieceQuantik::WHITE ? "Blancs" : "Noirs";
+        $stringCoul = $couleur == PieceQuantik::WHITE ? "blancs" : "noirs";
         $resultat ="";
 
         $resultat .= "<div id='victoire'><h4>Victoire des " . $stringCoul . "!</h4></div>";

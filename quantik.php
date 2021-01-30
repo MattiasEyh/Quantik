@@ -20,6 +20,7 @@ if (isset($_GET['reset'])) { //pratique pour réinitialiser une partie à la mai
     unset($_SESSION['couleurActive']);
     unset($_SESSION['plateau']);
     unset($_SESSION['message']);
+    unset($_SESSION['submited']);
 }
 
 if (empty($_SESSION)) { // initialisation des variables de session
@@ -29,6 +30,7 @@ if (empty($_SESSION)) { // initialisation des variables de session
     $_SESSION['etat'] = 'choixPiece';
     $_SESSION['couleurActive'] = PieceQuantik::WHITE;
     $_SESSION['message'] = "";
+    $_SESSION['submited'] = true;
 }
 
 $pageHTML = "";
@@ -101,6 +103,7 @@ switch($_SESSION['etat']) {
         echo QuantikUIGenerator::getPageErreur($_SESSION['message']);
         exit(1);
 }
+
 // seul echo nécessaire toute la pageHTML a été générée dans la variable $pageHTML
 $pageHTML .= QuantikUIGenerator::getLienRecommencer();
 $pageHTML .= QuantikUIGenerator::getFinHTML();

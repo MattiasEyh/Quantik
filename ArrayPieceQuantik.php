@@ -36,10 +36,12 @@ class ArrayPieceQuantik
     }
 
     public function removePieceQuantik(int $pos){
-        for($i = $pos; $i < $this->taille - 1; $i++)
-            $this->piecesQuantiks[$i] = $this->piecesQuantiks[$i + 1];
-        array_pop($this->piecesQuantiks);
-        $this->taille--;
+        if($pos >= 0 && $pos < $this->taille) {
+            for ($i = $pos; $i < $this->taille - 1; $i++)
+                $this->piecesQuantiks[$i] = $this->piecesQuantiks[$i + 1];
+            array_pop($this->piecesQuantiks);
+            $this->taille--;
+        }
     }
 
     public function getTaille() : int {
